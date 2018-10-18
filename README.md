@@ -2,6 +2,30 @@
 
 Gitlab server one-step scripts, support setup/backup/restore features
 
+## Important
+
+#### Support OS
+
+1. *Linux* (Fully support)
+2. *Selinux* (Particial support), if you want to deploy to `selinux`, please change the `docker-compose.yaml` and append `:Z` to volumes part. For example, change `/srv/gitlab/config:/etc/gitlab` to `/srv/gitlab/config:/etc/gitlab:Z`.
+3. *Mac* (Particial support), if you want to deploy to `Mac`, Pelese setup `nfs` on your `mac`, and change `docker-compose.yaml` to use `nfs` mount.
+4. *Windows* (Not support)
+
+#### Period backup
+
+`backup.sh` does not support period backup, if you want to backup periodly, you can do it by [cron](http://www.pantz.org/software/cron/croninfo.html).
+
+
+#### Docker image version
+
+All the scripts will use the laest image of gitlab `gitlab/gitlab-ce:latest`. So for restore, please always make sure the backup version matches the runing gitlab container version.
+
+If running gitlab container does not matches the backup version. please restore follow the steps
+
+1. Pull the version correct `gitlab/gitlab-ce` image and tag it to `latest`
+2. Setup a clean gitlab server by run `sh setup.sh`
+3. Restore the new gitlab server by run `sh restore.sh`
+
 ## Features
 
 1. **Setup** a clean gitlab server, running in docker container
