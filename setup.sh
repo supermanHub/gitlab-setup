@@ -35,7 +35,7 @@ if [[ $EUID -eq 0 ]]; then
 fi
 
 if [ -z $GDOMAIN ]; then
-  echo "ERROR!!! GDOMAIN environment is not set, please set it. e.g, 'export GDOMAIN=idianyou'";
+  echo "ERROR!!! GDOMAIN environment is not set, please set it. e.g, 'export GDOMAIN=idianyou.com'";
   exit 1
 fi
 
