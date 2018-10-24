@@ -4,22 +4,11 @@ services:
   gitlab:
     image: "gitlab/gitlab-ce:latest"
     restart: always
-    hostname: "gitlab.${GDOMAIN}"
+    container_name: "gitlab.${GDOMAIN}"
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url "https://gitlab.${GDOMAIN}"
         nginx['redirect_http_to_https'] = true
-        #gitlab_rails['smtp_enable'] = true
-        #gitlab_rails['smtp_address'] = "${your_smtp_address}"
-        #gitlab_rails['smtp_port'] = 25
-        #gitlab_rails['smtp_user_name'] = "gitlab"
-        #gitlab_rails['smtp_password'] = "gitlab"
-        #gitlab_rails['smtp_domain'] = "${your_smtp_domain}"
-        #gitlab_rails['smtp_authentication'] = "login"
-        #gitlab_rails['smtp_enable_starttls_auto'] = true
-        #gitlab_rails['smtp_openssl_verify_mode'] = 'none'
-        #gitlab_rails['gitlab_email_from'] = 'gitlab@${gitlab_email_from}'
-        #gitlab_rails['gitlab_email_reply_to'] = 'noreply@${gitlab_email_reply_to}'
     ports:
       - "80:80"
       - "443:443"
@@ -30,3 +19,11 @@ services:
       - "/srv/gitlab/data:/var/opt/gitlab"
       - "/srv/gitlab/config-backups/:/secret/gitlab/config-backups/"
       - "/srv/gitlab/ssh-backups/:/secret/gitlab/ssh-backups/"
+  mattermost:
+    image: "mattermost/mattermost-preview:latest"
+    restart: always
+    container_name: "mattermost.${GDOMAIN}"
+    ports:
+      - "8065:8065"
+    volumes:
+      - "/srv/mattermost/mattermost-data:/mm/mattermost-data"

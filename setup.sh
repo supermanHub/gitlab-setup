@@ -59,7 +59,7 @@ if ! docker ps > /dev/null 2>&1 ; then
   exit 1
 fi
 
-echo "WARNING: This script will set path /srv/gitlab as gitlab server work folder, please backup your data if the fold is already exists."
+echo "WARNING: This script will set path /srv/gitlab as gitlab server work folder and /srv/mattermost as mattermost work folder, please backup your data if the fold is already exists."
 echo ""
 echo -n "Do you wish to proceed? [y]: "
 read decision
@@ -71,15 +71,15 @@ fi
 
 echo "INFO!!! Pre requirements checking is finished. Everything looks good, start to setup gitlab server..."
 
-if [ ! -d "/srv/gitlab" ]; then
- echo "INFO!!! Directory '/srv/gitlab' is not exist, create it and change owner to `whoami`:docker (maybe require root permission)!"
- sudo mkdir -p /srv/gitlab
- sudo chown -R `whoami`:docker /srv/gitlab
+if [ ! -d "/srv" ]; then
+ echo "INFO!!! Directory '/srv' is not exist, create it and change owner to `whoami`:docker (maybe require root permission)!"
+ sudo mkdir -p /srv
+ sudo chown -R `whoami`:docker /srv
 fi
 
-if [ ! -w "/srv/gitlab" ]; then 
-  echo "INFO!!! Directory '/srv/gitlab' is exist, but permission is not correct. change it to `whoami`:docker (maybe require root permission)!"
-  sudo chown -R `whoami`:docker /srv/gitlab
+if [ ! -w "/srv" ]; then 
+  echo "INFO!!! Directory '/srv' is exist, but permission is not correct. change it to `whoami`:docker (maybe require root permission)!"
+  sudo chown -R `whoami`:docker /srv
 fi
 
 echo "INFO!!! Gitlab server workspace setup successfully, startup gitlab server"
